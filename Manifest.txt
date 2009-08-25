@@ -1,0 +1,13 @@
+.autotest
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+lib/robot.rb
+lib/robot/decorator.rb
+lib/robot/failsafe.rb
+lib/robot/hoptoad.rb
+lib/robot/logger.rb
+lib/robot/synchronizer.rb
+lib/robot/task.rb
+lib/robot/version.rb
