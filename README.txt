@@ -19,25 +19,38 @@ Robot does your bidding.  Use it for good, not for evil.
 
 Add the following to an initializer (config/initializers/robot.rb):
 
-  # Omit this line if you don't want logging, or define it as a custom logger
-  # if you want a separate log file for your Robot tasks.
-  Robot.logger = RAILS_DEFAULT_LOGGER
-  
-  # Omit this line if you're not using Hoptoad.
-  Robot.hoptoad = HoptoadNotifier
-  
-  Robot.define(:hourly) do
-    perform("Some long-running task") { LongTask.run }
+  Robot.define(:hourly) do |robot|
+    # Omit this line if you don't want logging, or define it as a custom logger
+    # if you want a separate log file for your Robot tasks.
+    robot.logger = Logger.new("log/robot.log")
+    
+    # Omit this line if you don't want to synchronize tasks. Adding a PIDMutex
+    # here will ensure that only 1 process is running this task at any time.
+    # Note that since PIDMutex uses a file as a locking mechanism, this method
+    # doesn't scale beyond a single filesystem.
+    robot.mutex = PIDMutex.new("tmp/pids/hourly.pid")
+    
+    # Omit this line if you're not using Hoptoad.
+    robot.hoptoad = HoptoadNotifier
+    
+    # This is true by default, I'm just including it here as an example. If
+    # you set it to false, then there won't be a failsafe mechanism, meaning
+    # any exceptions raised by tasks will be unchecked. You'll usually want to
+    # leave this set to true.
+    robot.failsafe = true
+    
+    robot.perform("Some long-running task") { LongTask.run }
   end
 
 And then add an entry to crontab to run your new Robot.hourly method:
 
-  @hourly script/runner -e production "Robot.hourly"
+  @hourly script/runner -e production "Robot.run(:hourly)"
 
 == REQUIREMENTS:
 
 * hoe
 * hoe-izea
+* izea-pid_mutex (for process-level locking, optional)
 
 == INSTALL:
 

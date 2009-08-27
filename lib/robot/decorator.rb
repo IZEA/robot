@@ -1,4 +1,4 @@
-module Robot
+class Robot
   class Decorator
     attr_accessor :task
     

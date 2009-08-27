@@ -1,4 +1,4 @@
-module Robot
+class Robot
   # Task decorator which wraps the task inside a mutex lock.
   class Synchronizer < Decorator
     class SynchronizationError < StandardError # :nodoc:

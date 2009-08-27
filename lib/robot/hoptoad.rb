@@ -1,4 +1,4 @@
-module Robot
+class Robot
   # Task decorator which reports any errors to Hoptoad.
   class Hoptoad < Decorator
     # Runs the decorated task, reporting any exceptions that it raises.  Note

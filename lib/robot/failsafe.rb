@@ -1,4 +1,4 @@
-module Robot
+class Robot
   # Task decorator which rescues any errors raised by the task.
   class Failsafe < Decorator
     # Runs the decorated task, rescuing any exceptions that it raises.
@@ -12,9 +12,11 @@ module Robot
     private
     
     def handle_exception(exception) # :nodoc:
+      return unless $VERBOSE
+      
       message = "/!\\ FAILSAFE /!\\  #{Time.now}\n"
       message << "  #{exception}\n    #{exception.backtrace.join("\n    ")}" if exception
-      STDERR.puts(message)
+      $stderr.puts(message)
     end
   end
 end

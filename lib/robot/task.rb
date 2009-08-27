@@ -1,4 +1,4 @@
-module Robot
+class Robot
   class Task
     attr_reader :name
     

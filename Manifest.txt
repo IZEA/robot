@@ -11,3 +11,4 @@ lib/robot/logger.rb
 lib/robot/synchronizer.rb
 lib/robot/task.rb
 lib/robot/version.rb
+test/test_robot.rb

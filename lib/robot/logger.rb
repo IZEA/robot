@@ -1,6 +1,6 @@
 require 'benchmark'
 
-module Robot
+class Robot
   # Task decorator which adds logging and benchmarking.
   class Logger < Decorator
     attr_accessor :logger
