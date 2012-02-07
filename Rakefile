@@ -1,6 +1,5 @@
 # -*- ruby -*-
-
-require 'rubygems'
+require "bundler/gem_tasks"
 require 'hoe'
 require './lib/robot/version.rb'
 

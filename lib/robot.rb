@@ -1,4 +1,6 @@
 require 'robot/version'
+require 'pathname'
+require 'pid_mutex'
 
 class Robot
   autoload :Decorator,    'robot/decorator'
@@ -10,6 +12,10 @@ class Robot
   
   class << self
     attr_accessor :robots
+    attr_accessor :logger
+    attr_accessor :pid_root
+    attr_accessor :hoptoad
+    attr_accessor :failsafe
   end
   
   self.robots = {}
@@ -58,7 +64,10 @@ class Robot
   
   def initialize(name)
     @name = name
-    @failsafe = true
+    @failsafe = self.class.failsafe.nil? ? true : self.class.failsafe
+    @logger = self.class.logger if self.class.logger
+    @hoptoad = self.class.hoptoad if self.class.hoptoad
+    @mutex = PIDMutex.new(self.class.pid_root.join("robot.#{name}.pid")) if self.class.pid_root 
     @blocks = []
   end
 end

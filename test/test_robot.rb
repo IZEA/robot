@@ -57,9 +57,25 @@ class TestRobot < Test::Unit::TestCase
     silence_warnings { assert_nothing_raised { robot.run } }
   end
   
+  def test_failsafe_class_default
+    Robot.failsafe = true
+    robot = Robot.new(:test)
+    robot.perform('test') { raise(TestError, "KABOOM") }
+    
+    silence_warnings { assert_nothing_raised { robot.run } }
+  end
+  
   def test_failsafe_disabled
     robot = Robot.new(:test)
     robot.failsafe = false
+    robot.perform('fail') { raise(TestError, "KABOOM") }
+    
+    assert_raises(TestError) { robot.run }
+  end
+  
+  def test_failsafe_disabled_class_default
+    Robot.failsafe = false
+    robot = Robot.new(:test)
     robot.perform('fail') { raise(TestError, "KABOOM") }
     
     assert_raises(TestError) { robot.run }
@@ -70,6 +86,19 @@ class TestRobot < Test::Unit::TestCase
     robot = Robot.new(:test)
     robot.logger = logger
     robot.perform('test') {}
+    
+    assert logger.infos.empty?
+    robot.run
+    assert_equal 2, logger.infos.size
+    assert_equal 'Beginning test', logger.infos.first
+    assert_match /Completed test \(\d+\.\d+s\)/, logger.infos.last
+  end
+  
+  def test_logger_class_default
+    Robot.logger = Logger.new
+    robot = Robot.new(:test)
+    robot.perform('test') {}
+    logger = robot.logger
     
     assert logger.infos.empty?
     robot.run
@@ -96,6 +125,16 @@ class TestRobot < Test::Unit::TestCase
     
     exception = assert_raises(Robot::Synchronizer::SynchronizationError) { robot.run }
     assert_equal 'Task "perform" is already running', exception.message
+  end
+
+  def test_pid_class_default
+    Robot.pid_root = Pathname.pwd.join('tmp')
+    robot = Robot.new(:test)
+    robot.failsafe = false
+    robot.perform('perform') {}
+    assert_equal true,!!robot.mutex
+    assert_equal robot.mutex.class,PIDMutex
+    assert_equal robot.mutex.pid_file.to_s, "#{Robot.pid_root}/robot.test.pid"
   end
   
   private

@@ -1,0 +1,27 @@
+PATH
+  remote: .
+  specs:
+    robot (0.2.0)
+      hoe
+      hoe-izea
+      izea-pid_mutex
+
+GEM
+  remote: http://rubygems.org/
+  remote: http://gems.izea.com/
+  specs:
+    ZenTest (4.6.2)
+    autotest (4.4.6)
+      ZenTest (>= 4.4.1)
+    hoe (2.13.1)
+      rake (~> 0.8)
+    hoe-izea (0.0.3)
+    izea-pid_mutex (0.0.2)
+    rake (0.9.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  autotest
+  robot!

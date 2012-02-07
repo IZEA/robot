@@ -1,7 +1,7 @@
 .autotest
-History.txt
+changelog.md
 Manifest.txt
-README.txt
+README.md
 Rakefile
 lib/robot.rb
 lib/robot/decorator.rb
