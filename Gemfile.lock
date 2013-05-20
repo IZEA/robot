@@ -2,13 +2,11 @@ PATH
   remote: .
   specs:
     robot (0.2.0)
-      izea-pid_mutex
 
 GEM
   remote: http://rubygems.org/
   remote: http://gems.izea.com/
   specs:
-    izea-pid_mutex (0.0.2)
 
 PLATFORMS
   ruby
