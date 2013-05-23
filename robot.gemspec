@@ -5,13 +5,12 @@ require "robot/version"
 Gem::Specification.new do |s|
   s.name        = "robot"
   s.version     = Robot::VERSION::STRING
-  s.authors     = ["Dray Lacy"]
-  s.email       = ["gradyg@izea.com"]
-  s.homepage    = ""
+  s.platform    = Gem::Platform::RUBY
+  s.authors     = ["Dray Lacy", "Grady Griffin", "Brian Fisher"]
+  s.email       = "opensource@izea.com"
+  s.homepage    = "https://github.com/IZEA/robot"
   s.summary     = %q{Use Robot to run scheduled jobs}
   s.description = %q{job scheduling gem}
-
-  s.rubyforge_project = "robot"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
