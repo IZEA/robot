@@ -1,6 +1,6 @@
 require 'robot/version'
 require 'pathname'
-require 'pid_mutex'
+require 'mutex/pid_mutex'
 
 class Robot
   autoload :Decorator,    'robot/decorator'
