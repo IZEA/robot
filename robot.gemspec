@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "robot/version"
 
 Gem::Specification.new do |s|
-  s.name        = "robot"
+  s.name        = "scheduled-robot"
   s.version     = Robot::VERSION::STRING
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Dray Lacy", "Grady Griffin", "Brian Fisher"]
