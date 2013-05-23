@@ -10,7 +10,6 @@ Gem::Specification.new do |s|
   s.email       = "opensource@izea.com"
   s.homepage    = "https://github.com/IZEA/robot"
   s.summary     = %q{Use Robot to run scheduled jobs}
-  s.description = %q{job scheduling gem}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
